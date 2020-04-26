@@ -1,0 +1,34 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+  - export APP_CONTAINER_NAME=accounting-back-container
+
+build accounting:
+  stage: build
+  image: openjdk:11-jdk-slim
+  artifacts:
+    paths:
+      - dist
+  tags:
+    - accounting_ofbiz
+  script:
+    - docker build -t "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}" .
+  only:
+    - master
+    - tags
+
+
+deploy accounting:
+  stage: deploy
+  tags:
+    - accounting_ofbiz
+  script:
+    - docker stop "$APP_CONTAINER_NAME" || true
+    - docker rm "$APP_CONTAINER_NAME" || true
+    - docker run --name "$APP_CONTAINER_NAME" -p 80:80 -d "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}"
+    - docker system prune -af
+  only:
+    - master
+    - tags
