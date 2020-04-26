@@ -7,7 +7,7 @@ before_script:
 
 build accounting_ofbiz:
   stage: build
-  image: openjdk:11-jdk-slim
+  image: node:11-alpine
   artifacts:
     paths:
       - dist
@@ -20,7 +20,7 @@ build accounting_ofbiz:
     - tags
 
 
-deploy accounting:
+deploy accounting_ofbiz:
   stage: deploy
   tags:
     - accounting_ofbiz
