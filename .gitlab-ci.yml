@@ -27,7 +27,7 @@ deploy accounting_ofbiz:
   script:
     - docker stop "$APP_CONTAINER_NAME" || true
     - docker rm "$APP_CONTAINER_NAME" || true
-    - docker run --name "$APP_CONTAINER_NAME" -p 80:80 -d "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}"
+    - docker run --name "$APP_CONTAINER_NAME" -p 8443:8443 -d "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}"
     - docker system prune -af
   only:
     - trunk
