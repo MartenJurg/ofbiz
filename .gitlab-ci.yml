@@ -16,7 +16,7 @@ build accounting_ofbiz:
   script:
     - docker build -t "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}" .
   only:
-    - master
+    - trunk
     - tags
 
 
@@ -30,5 +30,5 @@ deploy accounting_ofbiz:
     - docker run --name "$APP_CONTAINER_NAME" -p 80:80 -d "accounting_ofbiz:${CI_COMMIT_SHORT_SHA}"
     - docker system prune -af
   only:
-    - master
+    - trunk
     - tags
