@@ -5,7 +5,7 @@ stages:
 before_script:
   - export APP_CONTAINER_NAME=accounting-back-container
 
-build accounting:
+build accounting_ofbiz:
   stage: build
   image: openjdk:11-jdk-slim
   artifacts:
